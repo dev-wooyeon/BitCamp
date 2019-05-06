@@ -2,7 +2,9 @@ package com.model2.mvc.web.product;
 
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,7 @@ import com.model2.mvc.service.product.ProductService;
 @Controller
 @RequestMapping("/product/*")
 public class ProductController {
+
 
 	@Autowired
 	@Qualifier("productServiceImpl")
@@ -47,7 +50,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/addProduct")
-	public String addProduct( @ModelAttribute("product") Product product,HttpServletRequest request ) throws Exception {
+	public String addProduct( @ModelAttribute("product") Product product, HttpServletRequest request) throws Exception {
 
 		System.out.println("/addProduct");
 		//Business Logic
@@ -71,9 +74,16 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/getProduct")
-	public String getProduct( @RequestParam("menu") String menu, @RequestParam("prodNo") int prodNo , Model model, HttpSession session ) throws Exception {
+	public String getProduct( @RequestParam("menu") String menu, @RequestParam("prodNo") int prodNo , Model model, HttpSession session, HttpServletResponse response) throws Exception {
 		
 		System.out.println(" @@@@@@ "+menu);
+		
+		String temp=null;
+		Cookie cookie = new Cookie("history", String.valueOf(prodNo));
+		cookie.setMaxAge(60*60*24);
+		System.out.println("cookie : " + cookie);
+		temp += cookie+",";
+		response.addCookie(cookie);
 		
 		System.out.println("/getProduct");
 		//Business Logic

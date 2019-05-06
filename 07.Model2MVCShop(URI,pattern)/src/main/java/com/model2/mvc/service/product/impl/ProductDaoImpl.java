@@ -53,6 +53,7 @@ public class ProductDaoImpl implements ProductDao{
 	public HashMap<String, Object> getProductList(Search search) throws SQLException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<Product> list = sqlSession.selectList("ProductMapper.getProductList", search);
+		System.out.println(" :: " + list +"\n");
 		map.put("list", list);
 		return map;
 	}
