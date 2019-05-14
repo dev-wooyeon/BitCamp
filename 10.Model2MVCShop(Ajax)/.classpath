@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" path="src/test/java"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0 (2)">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_181">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/com.springsource.org.aopalliance-1.0.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/com.springsource.org.apache.commons.dbcp-1.2.2.osgi.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/com.springsource.org.apache.commons.logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/com.springsource.org.apache.commons.pool-1.5.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/com.springsource.org.apache.log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/com.springsource.org.junit-4.7.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/commons-fileupload-1.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/jackson-core-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/jackson-mapper-asl-1.9.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/javax.servlet.jsp.jstl-1.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/javax.servlet.jsp.jstl-api-1.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/mybatis-3.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/mybatis-spring-1.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/ojdbc14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-aop-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-aspects-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-beans-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-context-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-context-support-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-core-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-expression-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-instrument-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-instrument-tomcat-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-jdbc-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-jms-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-messaging-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-orm-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-oxm-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-test-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-tx-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-web-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-webmvc-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-webmvc-portlet-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/USER/git/10.Model2MVCShop/10.Model2MVCShop(Ajax)/WebContent/WEB-INF/lib/spring-websocket-4.0.9.RELEASE.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
