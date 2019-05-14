@@ -9,11 +9,53 @@
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script type="text/javascript">
+
 	function fncGetUserList(currentPage) {
-		document.getElementById("currentPage").value = currentPage;
-   		document.detailForm.submit();		
+		$("#currentPage").val(currentPage)
+		$("form").attr("method" , "POST").attr("action" , "/product/listProduct?&menu="+$("#menu").val()+"&pageSize="+$("#selectPageSize").val()).submit();
 	}
+	
+	function getPageSize(){
+		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu="+$("#menu").val()+"&pageSize="+$("#selectPageSize").val());
+	}
+	
+	$(function(){		
+		$(".ct_list_pop td:nth-child(9)").on("click", function(){
+			//alert($(this).children("input").val())
+			//alert($(this).children("#prodNo").val())
+			//alert('${product.prodNo}')
+			$(window.parent.frames["rightFrame"].document.location).attr("href","/purchase/updateTranCode?prodNo="+$(this).children("input").val()+"&menu="+$("#menu").val());
+			alert('배송이 완료되었습니다.')
+		});
+		
+		 $( "td.ct_btn01:contains('검색')" ).on("click" , function() {
+				//Debug..
+				//alert(  $( "td.ct_btn01:contains('검색')" ).html() );
+				fncGetUserList(1);
+		});
+		
+		$(".ct_list_pop td:nth-child(3)").on("click", function(){
+			//alert($("#prodNo").text().trim());
+			//alert($("#prodNo").val());
+			//alert($(this).text().trim());
+			//alert($('#prod_no').text.trim());
+			//alert($('#prod_no').val());
+			//alert('${product.prodNo}');
+			//alert($('#prodNo').index(this));
+			//alert($('#prod_No').index(this));
+			//alert($('.ct_list_pop td:nth-child(3)').index(this));
+			self.location="/product/getProduct?prodNo="+$(this).children("input").val()+"&menu="+$("#menu").val();
+// 			if(${product.proTranCode=='null'}){
+// 				self.location="/product/getProduct?prodNo="+$(this).children("input").val()+"&menu="+$("#menu").val();
+// 			}
+		});
+		
+		$( ".ct_list_pop td:nth-child(3)" ).css("color" , "red").css("font-weight","bolder");
+		$("h7").css("color" , "red").css("font-weight","bolder");
+		$(".ct_list_pop:nth-child(4n+6)" ).css("background-color" , "whitesmoke");
+	});
 </script>
 </head>
 
@@ -46,22 +88,40 @@
 				</tr>
 			</table>
 
-
 			<table width="100%" border="0" cellspacing="0" cellpadding="0"
 				style="margin-top: 10px;">
 				<tr>
+					<td class="ct_list_b" width="100">표시개수</td>
+					<td class="ct_line02"></td>
+					<td class="ct_list_b" width="100">
+					<select name="pageSize" id="selectPageSize"class="ct_input_g" style="width: 80px" onchange="javascript:getPageSize()">
+							<%-- ${ ! empty search.pageSize == 0 ? "selected" : "" }--%>
+							<option value="5" ${ search.pageSize == 5 ? "selected" : "" }>5</option>
+							<option value="8" ${ search.pageSize == 8 ? "selected" : "" }>8</option>
+							<option value="10" ${ search.pageSize == 10 ? "selected" : "" } >10</option>
+							<option value="15" ${ search.pageSize == 15 ? "selected" : "" } >15</option>
+					</select>
+					</td>
+					<td class="ct_line02"></td>
+					<td class="ct_list_b" width="100">
+						▲<a href="/product/listProduct?menu=${param.menu}&order=1&pageSize=${search.pageSize}">높은가격순</a><br>
+						▼<a href="/product/listProduct?menu=${param.menu}&order=2&pageSize=${search.pageSize}">낮은가격순 </a></td>
+					<td class="ct_line02"></td>
 					<c:if test="${ search.searchCondition != null}">
-					
-					<td align="right">
+					<td class="ct_list_b" width="100" align="right">
 						<select name="searchCondition" class="ct_input_g" style="width: 80px">
 							<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품번호</option>
 							<option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품명</option>
 							<option value="2" ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>상품가격</option>
-					</select> <input type="text" 
+						</select> 
+					<td class="ct_line02"></td>
+					<td class="ct_list_b" width="100" align="right">
+						<input type="text" 
 									 name="searchKeyword" 
-									 value="${search.searchKeyword}" 
+									 value="${! empty search.searchKeyword ? search.searchKeyword : ''}" 
 									 class="ct_input_g"
-									 style="width: 200px; height: 19px" /></td>
+									 style="width: 200px; height: 19px" />
+					<td class="ct_line02"></td>						
 					</c:if>
 					<c:if test="${ search.searchCondition == null }">
 					<td align="right"><select name="searchCondition"
@@ -78,8 +138,7 @@
 								<td width="17" height="23"><img
 									src="/images/ct_btnbg01.gif" width="17" height="23"></td>
 								<td background="/images/ct_btnbg02.gif" class="ct_btn01"
-									style="padding-top: 3px;"><a
-									href="javascript:fncGetUserList('1');">검색</a></td>
+									style="padding-top: 3px;">검색</td>
 								<td width="14" height="23"><img
 									src="/images/ct_btnbg03.gif" width="14" height="23"></td>
 							</tr>
@@ -88,7 +147,8 @@
 				</tr>
 			</table>
 
-
+			<input type="hidden" id="menu" class="menu1" value="${param.menu}">
+					
 			<table width="100%" border="0" cellspacing="0" cellpadding="0"
 				style="margin-top: 10px;">
 				<tr>
@@ -97,7 +157,7 @@
 				<tr>
 					<td class="ct_list_b" width="100">No</td>
 					<td class="ct_line02"></td>
-					<td class="ct_list_b" width="150">상품명</td>
+					<td class="ct_list_b" width="150">상품명<br><h7>(click : 상세정보)</h7>	</td>
 					<td class="ct_line02"></td>
 					<td class="ct_list_b" width="150">가격</td>
 					<td class="ct_line02"></td>
@@ -112,18 +172,21 @@
 				<c:forEach var="product" items="${list}">
 					<c:set var="i" value="${i+1}"/>
 				<tr class="ct_list_pop">
-					<td align="center">${ i }</td>
+					<td align="center" id="prod_no">${ i }</td>
 					<td></td>
-					<td align="left">
+					<td align="left" id="prodName">
+						<input type="hidden" id="prodNo" value="${product.prodNo}">
 						<c:if test="${param.menu =='manage'}">
-							<a href="/product/getProduct?prodNo=${product.prodNo}&menu=manage">${product.prodName}</a>
+							${product.prodName}
+							<!-- <a href="/product/getProduct?prodNo=${product.prodNo}&menu=manage">${product.prodName}</a> -->
 						</c:if>
 						<c:if test="${param.menu =='search'}">
 							<c:if test="${product.proTranCode==null}">
-								<a href="/product/getProduct?prodNo=${product.prodNo}&menu=search">${product.prodName}</a>
+							<!--  <a href="/product/getProduct?prodNo=${product.prodNo}&menu=search">${product.prodName}</a> -->
+							${product.prodName}
 							</c:if>
 							<c:if test="${product.proTranCode!=null}">
-								${product.prodName}
+							${product.prodName}
 							</c:if>
 						</c:if>
 					</td>
@@ -132,14 +195,16 @@
 					<td></td>
 					<td align="left">${product.regDate}</td>
 					<td></td>
-					<td align="left">
+					<td align="left" >
+						<input type="hidden" id="prodNo" value="${product.prodNo}">
+						<input type="hidden" id="tranCode" value="${product.proTranCode}">
 						<c:if test="${product.proTranCode==null}">
 						판매중
 						</c:if>
 						<c:if test="${product.proTranCode=='000'}">
 						구매완료
 							<c:if test="${param.menu=='manage'}">
-								<a href="/purchase/updateTranCode?prodNo=${product.prodNo}&menu=manage" onclick="alert('배송이 완료되었습니다.')">배송하기</a>
+							<a id="tranState">배송하기</a> 
 							</c:if>
 						</c:if>
 						<c:if test="${product.proTranCode=='001'}">
@@ -148,7 +213,7 @@
 						<c:if test="${product.proTranCode=='002'}">
 						배송완료
 						</c:if>
-						</td>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="11" bgcolor="D6D7D6" height="1"></td>
@@ -162,6 +227,28 @@
 					<td align="center">
 					<input type="hidden" id="currentPage" name="currentPage" value=""/>
 						<jsp:include page="../common/pageNavigator.jsp"/>	
+					</td>
+				</tr>
+			</table>
+			
+			<table width="100%" border="0" cellspacing="0" cellpadding="0"
+				style="margin-top: 10px;">
+				<tr>
+					<td align="center">
+						<hr>
+						추가기능 아이디어 
+						<hr>
+						◆<a href="/product/listProduct?menu=${param.menu}">품절상품만 보기</a>
+						◆<a href="/product/listProduct?menu=${param.menu}">품절상품포함 보기</a>
+						◆<a href="/product/listProduct?menu=${param.menu}">품정상품제외 보기</a>
+						◆<a href="/product/listProduct?menu=${param.menu}">신상품 보기</a>
+						<br>
+						◆<a href="/product/listProduct?menu=${param.menu}">찜한 보기</a>
+						◆<a href="/product/listProduct?menu=${param.menu}">별점 매기기</a>
+						◆<a href="/product/listProduct?menu=${param.menu}">랭킹 보기</a>
+						◆<a href="/product/listProduct?menu=${param.menu}">할인 이벤트</a>
+						<br>
+
 					</td>
 				</tr>
 			</table>
