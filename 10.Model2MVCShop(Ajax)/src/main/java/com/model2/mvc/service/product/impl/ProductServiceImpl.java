@@ -61,11 +61,20 @@ public class ProductServiceImpl implements ProductService{
 		
 		return map;
 	}
+	
+	
 
 	@Override
 	public void updateProduct(Product product) throws Exception {
 		System.out.println("4");
 		productDao.updateProduct(product);
+	}
+
+	@Override
+	public List<String> getProductSearchList(Map<String, Object> searchMap) throws Exception {
+		List<String> resultList = productDao.getProductSearchList(searchMap);
+		//resultMap.put("list", resultMap.get("list"));
+		return resultList;
 	}
 
 } // 클래스의 끝

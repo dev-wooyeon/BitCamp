@@ -1,27 +1,145 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-	pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR"%>
 <% request.setCharacterEncoding("euc-kr"); %>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
 <title>상품 목록조회</title>
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
 <script type="text/javascript">
 
+
 	function fncGetUserList(currentPage) {
+		
 		$("#currentPage").val(currentPage)
+		
+		//var curPage = $("#currentPage").val();
 		$("form").attr("method" , "POST").attr("action" , "/product/listProduct?&menu="+$("#menu").val()+"&pageSize="+$("#selectPageSize").val()).submit();
+		//var menu= $("#menu").val();
+		//var pageSize= $("#selectPageSize").val()
+		/* $.ajax({
+			url : "/product/json/listProduct/"+menu+"/"+pageSize+"/"+curPage ,
+			method : "GET",
+			dataType : "json",
+			headers : {
+				"Accept" : "application/json",
+				"Content-Type" : "application/json"
+			},
+			success : function(JSONData, status){
+				
+				//alert(JSON.stringify(JSONData.list[0].prodName));
+				//alert(JSONData.list);
+				//alert(JSONData.resultPage);
+				//alert(JSONData.search);
+				
+				var strJSON = JSON.stringify(JSONData);
+ 				var display = "<td>"+
+ 							  JSONData.list[0].prodName
+ 							  "</td>"
+ 							  
+ 				$("#prodName").html(display);
+			}
+		}); */
 	}
 	
 	function getPageSize(){
 		$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu="+$("#menu").val()+"&pageSize="+$("#selectPageSize").val());
 	}
 	
-	$(function(){		
+	$(function(){
+		
+		//$("#currentPage").val("1");
+		//var curPage = $("#currentPage").val();
+		var pageSize= $("#selectPageSize").val();
+		var menu= $("#menu").val();
+		
+		$("#searchKeyword").on("keyup", function(){
+			
+			//alert("_"+$("#searchKeyword").val()+"_");
+			//alert($("#searchCondition").val());
+			
+			
+			var search = {searchKeyword : $("#searchKeyword").val(), searchCondition : $("#searchCondition").val()};
+			var convertSearch = JSON.stringify(search);
+			 
+			//alert(convertSearch);
+			$.ajax({
+				url : "/product/json/listProduct/"+menu+"/"+pageSize ,
+				method : "POST",
+				dataType : "json",
+				data :  convertSearch ,
+				contentType: "application/x-www-form-urlencoded; charset=euc-kr",
+				headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json;charset=euc_kr"
+				},
+				success : function(JSONData, status){
+					
+					//alert(JSON.stringify(JSONData));
+					//alert(JSONData);
+					//var strArray = JSON.stringify(JSONData);
+					//alert(strArray);
+					//var strData2 = $.parseJSON(JSONData);
+					//alert(strData2);
+					//var data = new Array();
+					//test = new Array;
+
+					//alert(strData);
+					//alert(JSON.stringify(JSONData.list));
+					//alert(JSON.stringify(JSONData.list)[1]);
+					//for(var i=0; i<JSONData.length ; i++){
+						//alert(JSON.stringify(JSONData.list[i].prodName));
+// 						if(i == (JSONData.length-1)){
+// 							data = JSON.stringify(JSONData[i].prodName);
+// 							//text.push(JSON.stringify(JSONData.list[i].prodName));
+// 							break;
+// 						}
+					//	data[i] = JSON.stringify(strData2[i].prodName).replace(/,/g,'&#44;a').replace(/\"/g,"");
+						//data[i] = JSON.stringify(JSONData[i].prodName);
+						//text.push(JSON.stringify(JSONData.list[i].prodName));
+						
+					//}
+					
+					//&#44 ,
+					//alert(JSON.stringify(JSONData.list)[3]);
+					//alert(text);
+					//var bb = ["aa", "bb", "cc"];
+					//alert(bb);
+					//var a = data.replace(/,/g,'\,');
+					//var b = a.replace(/\"/g,"");
+						
+					//alert(a);
+					//alert(b);
+					
+					//alert(strData);
+					//var result = [
+					//	strData2
+					//	];
+					//alert(result);
+					//alert(result);
+					//alert(result + "\n" + bb);
+					//var lastResult = result.replace(",",'&#44;');
+					//alert(lastResult);
+					
+					//alert(result);
+					
+					$("#searchKeyword").autocomplete({
+						source : JSONData
+					});
+				}
+			});
+		});
+		
 		$(".ct_list_pop td:nth-child(9)").on("click", function(){
 			//alert($(this).children("input").val())
 			//alert($(this).children("#prodNo").val())
@@ -109,7 +227,7 @@
 					<td class="ct_line02"></td>
 					<c:if test="${ search.searchCondition != null}">
 					<td class="ct_list_b" width="100" align="right">
-						<select name="searchCondition" class="ct_input_g" style="width: 80px">
+						<select name="searchCondition" id="searchCondition" class="ct_input_g" style="width: 80px">
 							<option value="0" ${ ! empty search.searchCondition && search.searchCondition==0 ? "selected" : "" }>상품번호</option>
 							<option value="1" ${ ! empty search.searchCondition && search.searchCondition==1 ? "selected" : "" }>상품명</option>
 							<option value="2" ${ ! empty search.searchCondition && search.searchCondition==2 ? "selected" : "" }>상품가격</option>
@@ -117,22 +235,35 @@
 					<td class="ct_line02"></td>
 					<td class="ct_list_b" width="100" align="right">
 						<input type="text" 
-									 name="searchKeyword" 
+									 name="searchKeyword"
+									 id = "searchKeyword" 
 									 value="${! empty search.searchKeyword ? search.searchKeyword : ''}" 
 									 class="ct_input_g"
-									 style="width: 200px; height: 19px" />
-					<td class="ct_line02"></td>						
+									 style="width: 100%; height: 25px" />
+					<td class="ct_line02"></td>				 						
 					</c:if>
 					<c:if test="${ search.searchCondition == null }">
-					<td align="right"><select name="searchCondition"
-						class="ct_input_g" style="width: 80px">
+					
+					<td class="ct_list_b" width="100" align="right">
+						<select name="searchCondition" id="searchCondition" class="ct_input_g" style="width: 80px">
 							<option value="0">상품번호</option>
 							<option value="1">상품명</option>
 							<option value="2">상품가격</option>
-					</select> <input type="text" name="searchKeyword" class="ct_input_g"
-						style="width: 200px; height: 19px"></td>
+						</select> 
+					</td>
+					<td class="ct_line02"></td>
+					
+					<td class="ct_list_b" width="100" align="right">
+						<input type="text" 
+									 name="searchKeyword"
+									 id = "searchKeyword" 
+									 value="${! empty search.searchKeyword ? search.searchKeyword : ''}" 
+									 class="ct_input_g"
+									 style="width: 100%; height: 25px" />
+					</td>
+					<td class="ct_line02"></td>	
 					</c:if>
-					<td align="right" width="70">
+					<td class="ct_list_b" width="100">
 						<table border="0" cellspacing="0" cellpadding="0">
 							<tr>
 								<td width="17" height="23"><img
@@ -144,6 +275,7 @@
 							</tr>
 						</table>
 					</td>
+					<td class="ct_line02"></td>
 				</tr>
 			</table>
 

@@ -26,44 +26,80 @@
 		//==> jQuery 적용 추가된 부분
 		 $(function() {
 			 
+			var personalInfo = ".Depth03:contains('개인정보조회')";
 			//==> 개인정보조회 Event 연결처리부분
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		 	$( ".Depth03:contains('개인정보조회')" ).on("click" , function() {
+		 	$( personalInfo ).on("mousedown" , function() {
 				//Debug..
 				//alert(  $( ".Depth03:contains('개인정보조회')" ).html() );
-				$(window.parent.frames["rightFrame"].document.location).attr("href","/user/getUser?userId=${user.userId}");
+				$( personalInfo ).css("color","red");
+				$( personalInfo ).on("mouseup" , function() {
+					$(window.parent.frames["rightFrame"].document.location).attr("href","/user/getUser?userId=${user.userId}");
+					$( personalInfo ).css("color","black");
+				});
 			});
 			
+			var userInfo = ".Depth03:contains('회원정보조회')";
 			//==> 회원정보조회 Event 연결처리부분
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		 	$( ".Depth03:contains('회원정보조회')" ).on("click" , function() {
+		 	$( userInfo ).on("mousedown" , function() {
 				//Debug..
 				//alert(  $( ".Depth03:contains('회원정보조회')" ) );
-		 		$(window.parent.frames["rightFrame"].document.location).attr("href","/user/listUser");
+				$( userInfo ).css("color","red");
+				$( userInfo ).on("mouseup" , function() {
+					$(window.parent.frames["rightFrame"].document.location).attr("href","/user/listUser");
+					$( userInfo ).css("color","black");
+				});	 		
 			}); 
 			
-			$(".Depth03:contains('판매상품등록')").on("click" , function(){
+			var productAdd = ".Depth03:contains('판매상품등록')";
+			$(productAdd).on("mousedown" , function(){
 				
-				$(window.parent.frames["rightFrame"].document.location).attr("href","../product/addProductView.jsp;")
+				$( productAdd ).css("color","red");
+				$( productAdd ).on("mouseup" , function() {
+					$(window.parent.frames["rightFrame"].document.location).attr("href","../product/addProductView.jsp;");
+					$( productAdd ).css("color","black");
+				});
 			});
 			
-			$(".Depth03:contains('판매상품관리')").on("click" , function(){
+			var productManage = ".Depth03:contains('판매상품관리')";
+			$(productManage).on("mousedown" , function(){
 				
-				$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=manage")
+				$( productManage ).css("color","red");
+				$( productManage ).on("mouseup" , function() {
+					$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=manage")
+					$( productManage ).css("color","black");
+				});				
 			});
 			
-			$(".Depth03:contains('상 품 검 색')").on("click" , function(){
-	
-				$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=search")
+			var productSearch = ".Depth03:contains('상 품 검 색')";
+			$(productSearch).on("mousedown" , function(){
+				
+				$( productSearch ).css("color","red");
+				$( productSearch ).on("mouseup" , function() {
+					$(window.parent.frames["rightFrame"].document.location).attr("href","/product/listProduct?menu=search");
+					$( productSearch ).css("color","black");
+				});						
 			});
 			
-			$(".Depth03:contains('구매이력조회')").on("click" , function(){
-	
-				$(window.parent.frames["rightFrame"].document.location).attr("href","/purchase/listPurchase")
+			var purchaseInfo = ".Depth03:contains('구매이력조회')";
+			$(purchaseInfo).on("mousedown" , function(){
+				
+				$( purchaseInfo ).css("color","red");
+				$( purchaseInfo ).on("mouseup" , function() {
+					$(window.parent.frames["rightFrame"].document.location).attr("href","/purchase/listPurchase");
+					$( purchaseInfo ).css("color","black");
+				});						
 			});
 			
-			$(".Depth03:contains('최근 본 상품')").on("click" , function(){
-				history()
+			var productCookies = ".Depth03:contains('최근 본 상품')";
+			$(productCookies).on("mousedown" , function(){
+				
+				$( productCookies ).css("color","red");
+				$( productCookies ).on("mouseup" , function() {
+					history();
+					$( productCookies ).css("color","black");
+				});		
 			});
 		});	
 		 
@@ -79,7 +115,6 @@
 <tr>
 	<td valign="top"> 
 		<table  border="0" cellspacing="0" cellpadding="0" width="159" >	
-			<tr>
 				<c:if test="${ !empty user }">
 					<tr>
 						<td class="Depth03">
@@ -90,7 +125,6 @@
 						</td>
 					</tr>
 				</c:if>
-			
 				<c:if test="${user.role == 'admin'}">
 					<tr>
 						<td class="Depth03" >

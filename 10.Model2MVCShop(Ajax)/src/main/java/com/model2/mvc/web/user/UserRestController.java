@@ -1,15 +1,22 @@
 package com.model2.mvc.web.user;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.model2.mvc.common.Page;
@@ -31,6 +38,18 @@ public class UserRestController {
 		
 	public UserRestController(){
 		System.out.println(this.getClass());
+	}
+	
+	@RequestMapping( value="json/duplication/{userId}", method=RequestMethod.GET )
+	public String duplication(@PathVariable String userId) throws Exception {
+		
+		boolean result = userService.checkDuplication(userId);
+		
+		if(result) {
+			return "사용가능한 아이디입니다.";
+		}
+		
+		return "이미 존재하는 아이디 입니다. \n 다른 아이디를 입력해주세요";
 	}
 	
 	@RequestMapping( value="json/getUser/{userId}", method=RequestMethod.GET )
@@ -56,6 +75,16 @@ public class UserRestController {
 		}
 		
 		return dbUser;
+	}
+	
+	@RequestMapping( value="json/logout", method=RequestMethod.GET )
+	public String logout(HttpSession session) {
+		
+		System.out.println(" logout ");
+		
+		session.removeAttribute("user");
+		
+		return "로그아웃에 성공하였습니다";
 	}
 	
 	@RequestMapping( value="json/addUser", method=RequestMethod.POST )
@@ -105,4 +134,6 @@ public class UserRestController {
 		
 		return map;
 	}
+	
+	
 }

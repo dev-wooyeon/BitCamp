@@ -35,4 +35,6 @@ public interface ProductDao {
 				"WHERE row_seq BETWEEN "+((search.getCurrentPage()-1)*search.getPageSize()+1) +" AND "+search.getCurrentPage()*search.getPageSize();
 		return sql;
 	} */
+
+	public List<String> getProductSearchList(Map<String, Object> searchMap);
 }

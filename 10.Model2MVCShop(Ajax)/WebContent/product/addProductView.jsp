@@ -16,7 +16,8 @@ function fncAddProduct(){
 	var detail = $("input[name='prodDetail']").val();
 	var manuDate = $("input[name='manuDate']").val();
 	var price = $("input[name='price']").val();
-
+	var amount = $("input[name='amount']").val();
+	
 	if(name == null || name.length<1){
 		alert("상품명은 반드시 입력하여야 합니다.");
 		return;
@@ -33,6 +34,12 @@ function fncAddProduct(){
 		alert("가격은 반드시 입력하셔야 합니다.");
 		return;
 	}
+	if(amount == null || amount.length<1){
+		alert("개수는 반드시 입력하셔야 합니다.");
+	} else if ( amount > 999 ) {
+		alert("개수는 최대 999개까지만 등록가능합니다.");
+	} 
+		
 	
 	$("form").attr("method","POST").attr("action","/product/addProduct").submit();
 	
@@ -133,6 +140,18 @@ $(function () {
 		<td class="ct_write01">
 			<input type="text" name="price" 	class="ct_input_g" 
 						style="width: 100px; height: 19px" maxLength="10">&nbsp;원
+		</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	<tr>
+		<td width="104" class="ct_write">
+			수량 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">
+			<input type="text" id="amount" name="amount" class="ct_input_g" style="width: 70px; height: 19px" maxLength="3" value="1"> ▲▼ &nbsp;개
 		</td>
 	</tr>
 	<tr>

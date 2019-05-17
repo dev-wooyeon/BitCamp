@@ -129,29 +129,60 @@
 		}
 		 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+		 
 		//==>"ID중복확인" Event 처리 및 연결
 		 $(function() {
+			 
+			//$("#checkDupl").text("아이디입력하세요");
+			//alert("_"+$("#userId").val().trim()+"_")
+			$("#checkDupl").text("아이디입력하세요");
 			//==> DOM Object GET 3가지 방법 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
 			//==> 1 과 3 방법 조합 : $("tagName.className:filter함수") 사용함.	
-			 $("td.ct_btn:contains('ID중복확인')").on("click" , function() {
+			 $("#userId").on("keyup" , function() {
+				
+				if($("#userId").val().trim() == ''){
+					$("#checkDupl").text("아이디입력하세요");
+				}
+				
+				var id=$("input[name='userId']").val();
+				 
 				//alert($("td.ct_btn:contains('ID중복확인')").html());
-				popWin 
-				= window.open("/user/checkDuplication.jsp",
-											"popWin", 
-											"left=300,top=200,width=300,height=200,marginwidth=0,marginheight=0,"+
-											"scrollbars=no,scrolling=no,menubar=no,resizable=no");
-			});
+				$.ajax({
+					url : "/user/json/duplication/"+id ,
+					method : "GET",
+					dataType : "text",
+					headers : {
+					"Accept" : "application/json",
+					"Content-Type" : "application/json"
+					},
+					success : function(JSONData, status){					  
+						
+						
+						$("#checkDupl").text(JSONData);
+					
+					}
+				});
+			 });
 		});	
 
 	</script>		
 	
+	<style type="text/css">
+		body >table { 
+			width: 100%;
+			height:"37";
+			boder:"0";
+			cellpadding:"0";
+			cellspacing:"0";
+		}
+	</style>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
 
 <form name="detailForm">
 
-<table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
+<table>
 	<tr>
 		<td width="15" height="37">
 			<img src="/images/ct_ttl_img01.gif" width="15" height="37"/>
@@ -185,20 +216,14 @@
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
 					<td width="105">
-						<input 	type="text" name="userId" class="ct_input_bg" 
+						<input 	type="text" id="userId" name="userId" class="ct_input_bg" 
 										style="width:100px; height:19px"  maxLength="20" >
 					</td>
 					<td>
 						<table border="0" cellspacing="0" cellpadding="0">
 							<tr>
-								<td width="4" height="21">
-									<img src="/images/ct_btng01.gif" width="4" height="21"/>
-								</td>
-								<td align="center" background="/images/ct_btng02.gif" class="ct_btn" style="padding-top:3px;">
-									 ID중복확인
-								</td>
-								<td width="4" height="21">
-									<img src="/images/ct_btng03.gif" width="4" height="21"/>
+								<td align="center" id="checkDupl" style="padding-top:3px; font-weight: bold; color: red;">
+									 
 								</td>
 							</tr>
 						</table>

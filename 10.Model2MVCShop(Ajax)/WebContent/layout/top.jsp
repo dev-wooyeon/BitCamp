@@ -31,7 +31,7 @@
 			
 			//==> login Event 楷搬贸府何盒
 			//==> DOM Object GET 3啊瘤 规过 ==> 1. $(tagName) : 2.(#id) : 3.$(.className)
-		 	$( "td[width='56']:contains('logout')" ).on("click" , function() {
+		 	$( "td[width='115']:contains('logout')" ).on("click" , function() {
 				//Debug..
 				//alert(  $( "td[width='56']:contains('logout')" ).html() );
 				$(window.parent.document.location).attr("href","/user/logout");

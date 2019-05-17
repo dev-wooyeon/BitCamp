@@ -81,4 +81,13 @@ public class ProductDaoImpl implements ProductDao{
 		return sqlSession.selectOne("ProductMapper.getTotalCount", search);
 	}
 
+	@Override
+	public List<String> getProductSearchList(Map<String, Object> searchMap) {
+		System.out.println("searchMap @@@@@@@@@@@@@@@@@@@@@@@@@ " + searchMap.get("order"));
+		System.out.println("searchMap @@@@@@@@@@@@@@@@@@@@@@@@@ " + searchMap.get("searchKeyword"));
+		System.out.println("searchMap @@@@@@@@@@@@@@@@@@@@@@@@@ " + searchMap.get("searchCondition"));
+		List<String> list = sqlSession.selectList("ProductMapper.getProductSearchList", searchMap);
+		return list;
+	}
+
 }

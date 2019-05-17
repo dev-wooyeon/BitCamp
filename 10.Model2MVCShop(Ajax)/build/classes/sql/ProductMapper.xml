@@ -67,6 +67,14 @@
 		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
 	</select>
 	
+	<select id="getProductSearchList" parameterType="map" resultType="string">
+	
+	SELECT ${field}
+    FROM product
+	WHERE ${field} like '%'||#{searchKeyword}||'%'
+	
+	</select>
+	
 	<select  id="getTotalCount"  parameterType="search"	 resultType="int">
 	  	SELECT count(*)
 		FROM ( SELECT p.prod_no, p.PROD_NAME, p.PROD_DETAIL, p.MANUFACTURE_DAY, p.PRICE, p.IMAGE_FILE, p.REG_DATE, t.TRAN_STATUS_CODE
@@ -83,6 +91,6 @@
 						AND p.price like #{searchKeyword}
 					</if>
 				</if> 
-				ORDER BY p.prod_no) countTable											
+		ORDER BY p.prod_no) countTable											
 	 </select>
 </mapper>
