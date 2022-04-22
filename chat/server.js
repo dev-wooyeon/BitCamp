@@ -142,7 +142,7 @@
 	      
 	      ChatBot.emit('send_msg', msg);
 	      
-	      var yok = ['개새끼', '씨발', '병신', '걸레', '개년', '개좆', '개씹', '개씨발', '고자', '꼰대','새끼'];
+	      var yok = ['개새끼', '씨발', '병신', '고자', '새끼'];
 		  
 			var newChatBotDB = new chatbotDB2({
 				no : 100000,
