@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CommentMapper">
+ 	
+ 	
+	<resultMap id="commentSelectMap" type="comment">
+		<result property="commentNo" 	column="comment_no" 		jdbcType="NUMERIC"/>
+		<result property="prodNo"		column="prod_no" 			jdbcType="NUMERIC" />
+		<result property="reply" 		column="reply"				jdbcType="VARCHAR" />
+		<result property="inputDate" 	column="input_date"			jdbcType="VARCHAR" />
+		<result property="userId" 		column="user_id"			jdbcType="VARCHAR" />
+        <result property="likeCnt" 		column="like_cnt"			jdbcType="NUMERIC" />
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert id="addComment"	parameterType="comment" >
+	INSERT INTO comments VALUES (seq_comments_comment_no.nextval, #{prodNo} ,#{reply} , to_char(sysdate, 'yyyy/mm/dd hh:mi:ss'), #{userId}, 0)
+	</insert>
+	
+	
+	<select id="getComment" parameterType="int" resultMap="commentSelectMap">
+		SELECT comment_no, prod_no, reply, input_date, user_id, like_cnt
+		FROM comments
+		WHERE comment_no = #{value}
+	</select>
+	
+	<select id="getCommentList" parameterType="int" resultMap="commentSelectMap">
+		SELECT comment_no, prod_no, reply, input_date, user_id, like_cnt 
+		FROM comments 
+		WHERE prod_no = #{value}
+        ORDER BY like_cnt DESC		
+	 </select>
+
+     <update id="updateLike" parameterType="int">
+        UPDATE comments
+        SET like_cnt = like_cnt + 1
+        WHERE comment_no = #{commentNo}
+     </update>
+</mapper>

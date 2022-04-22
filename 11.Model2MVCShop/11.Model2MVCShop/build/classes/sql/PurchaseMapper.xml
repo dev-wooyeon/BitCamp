@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="PurchaseMapper">
+ 	
+	<resultMap id="purchaseSelectMap" type="purchase">
+		<result property="tranNo" 		 column="tran_no" 			jdbcType="NUMERIC"/>
+		<result property="purchaseProd.prodNo" column="prod_no" 	jdbcType="NUMERIC"/>
+		<result property="purchaseProd.fileName" column="image_file" 	jdbcType="VARCHAR"/>
+		<result property="buyer.userId"		 column="buyer_id" 			jdbcType="VARCHAR"/>
+		<result property="paymentOption" column="payment_option"	jdbcType="VARCHAR"/>
+		<result property="receiverName"	 column="receiver_name"		jdbcType="VARCHAR"/>
+		<result property="receiverPhone" column="receiver_phone" 	jdbcType="VARCHAR"/>
+		<result property="divyAddr" 	 column="demailaddr" 		jdbcType="VARCHAR"/>
+		<result property="divyRequest" 	 column="DLVY_REQUEST" 		jdbcType="VARCHAR"/>
+		<result property="tranCode" 	 column="tran_status_code" 	jdbcType="VARCHAR"/>
+		<result property="orderDate"	 column="order_data"		jdbcType="DATE"/>
+		<result property="divyDate"	 	 column="DLVY_DATE"			jdbcType="DATE"/>
+<<<<<<< HEAD
+		<result property="amount"	 	 column="amount"			jdbcType="NUMERIC"/>
+=======
+			
+>>>>>>> refs/remotes/origin/master
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert id="addPurchase" parameterType="purchase">
+		INSERT 
+		INTO transaction(
+		tran_no, 
+		prod_no, 
+		buyer_id, 
+		payment_option, 
+		receiver_name, 
+		receiver_phone, 
+		demailaddr, 
+		DLVY_REQUEST, 
+		tran_status_code, 
+		order_data,
+		DLVY_DATE,
+		amount)
+		VALUES(	
+		seq_transaction_tran_no.nextval,
+		#{purchaseProd.prodNo}, 
+		#{buyer.userId}, 
+		#{paymentOption}, 
+		#{receiverName}, 
+		#{receiverPhone},
+		#{divyAddr},
+		#{divyRequest},
+		'000',
+		#{orderDate:DATE},
+		SYSDATE,
+		#{amount})
+	 </insert>
+	
+	<select id="getPurchase" parameterType="int" resultMap="purchaseSelectMap">
+		SELECT t.tran_no, t.prod_no, t.buyer_id, t.payment_option, t.receiver_name, t.receiver_phone, t.demailaddr, t.DLVY_REQUEST, t.tran_status_code, t.order_data, t.dlvy_date, t.amount
+		FROM transaction t
+		WHERE tran_no = #{value}
+	</select>
+	
+	<update id="updatePurchase" parameterType="purchase">
+		UPDATE transaction
+		SET payment_option = #{paymentOption}, 
+			receiver_name = #{receiverName}, 
+			receiver_phone=#{receiverPhone}, 
+			demailaddr=#{divyAddr}, 
+			DLVY_REQUEST=#{divyRequest},
+			order_data=#{orderDate:DATE} 
+		WHERE tran_no = #{tranNo}
+	</update>
+	
+	<update id="updateTranCode" parameterType="int">
+		UPDATE transaction
+		SET tran_status_code = '001'
+		WHERE prod_no = #{value}
+	</update>
+	
+	<update id="updateTranCodeByTranNo" parameterType="map">
+		UPDATE transaction
+		SET tran_status_code = #{tranCode}
+		WHERE tran_no = #{tranNo}
+	</update>
+	
+	<select id="getPurchaseList" parameterType="hashmap" resultMap="purchaseSelectMap">
+		SELECT *
+	  	FROM (	SELECT inner_table.* , ROWNUM AS row_seq
+<<<<<<< HEAD
+	  					FROM		(	SELECT 
+										*
+										FROM transaction
+										<if test="buyerId neq 'admin'">
+=======
+	  					FROM		(	SELECT t.* , p.IMAGE_FILE  
+	  									FROM transaction t, product p
+>>>>>>> refs/remotes/origin/master
+										WHERE
+											t.prod_no = p.prod_no
+											AND
+											buyer_id = #{buyerId}
+										</if>
+										<if test="tranStateCode != null">
+										WHERE
+											tran_status_code = '${tranStateCode}'
+										</if>
+										ORDER BY tran_no ) inner_table
+						WHERE ROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 
+	</select>
+	
+	<select  id="getTotalCount"  parameterType="map"	 resultType="int">
+	  	SELECT COUNT(*)
+	  	FROM(	SELECT *
+						FROM transaction												
+							<if test="userId neq 'admin'">
+							WHERE
+							buyer_id = #{userId}
+							</if>
+							<if test="tranCode != null">
+							WHERE
+							tran_status_code = #{tranCode}
+							</if>
+						 ) countTable						
+	 </select>
+</mapper>

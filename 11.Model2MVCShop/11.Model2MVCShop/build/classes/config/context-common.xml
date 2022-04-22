@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xmlns:mvc="http://www.springframework.org/schema/mvc" 
+		xmlns:cache="http://www.springframework.org/schema/cache" 
+		xmlns:aop="http://www.springframework.org/schema/aop"
+
+
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation=
+				"http://www.springframework.org/schema/beans 
+				http://www.springframework.org/schema/beans/spring-beans.xsd
+				 http://www.springframework.org/schema/context 
+				 http://www.springframework.org/schema/context/spring-context.xsd
+				http://www.springframework.org/schema/util 
+				http://www.springframework.org/schema/util/spring-util.xsd
+				http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       			http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd
+       			">
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+		<property name="maxUploadSize" value="10485760" /> 
+	</bean>
+	
+	<bean id="uploadPath" class="java.lang.String">
+		<!--  <constructor-arg value="C:\Users\USER\git\10.Model2MVCShop\10.Model2MVCShop(Ajax)\WebContent\images\uploadFiles"></constructor-arg>-->
+		<!--  <constructor-arg value="C:\workspace\11.Model2MVCShop\WebContent\images\uploadFiles"></constructor-arg> -->
+		<!-- <constructor-arg value="C:\Users\USER\git\11.Model2MVCShop\11.Model2MVCShop\WebContent\images\uploadFiles"></constructor-arg> -->
+        <constructor-arg value="C:\Users\N\git\11.Model2MVCShop\11.Model2MVCShop\WebContent\images\uploadFiles"></constructor-arg>
+	</bean>
+	<!-- Spring 3.X  지원하는 SpEL를 사용은 아래와 같이 properties 화일을 등록. 
+			UserController 에서 Spring EL 의 사용법을 이해 할 것-->
+	<util:properties id="commonProperties" location="classpath:config/common.properties"/>
+		
+	<!-- 	ㅇ 어노테이션 기반 :: Spring Framework 사용. :: sub element 이해 할것 -->				
+	<context:component-scan base-package="com.model2.mvc.service">
+		<context:include-filter type="annotation"	expression="org.springframework.stereotype.Service" />
+		<context:include-filter type="annotation"	expression="org.springframework.stereotype.Repository" />
+		<context:exclude-filter type="annotation" 	expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>				
+				
+</beans>
