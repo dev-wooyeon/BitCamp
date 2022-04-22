@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CommentMapper">
+ 	
+ 	
+	<resultMap id="commentSelectMap" type="comment">
+		<result property="commentNo" 	column="comment_no" 		jdbcType="NUMERIC"/>
+		<result property="prodNo"		column="prod_no" 			jdbcType="NUMERIC" />
+		<result property="reply" 		column="reply"				jdbcType="VARCHAR" />
+		<result property="inputDate" 	column="input_date"			jdbcType="DATE" />
+	</resultMap>
+	
+	<!-- SQL : INSERT -->
+	<insert id="addComment"	parameterType="comment" >
+	INSERT INTO comments VALUES (seq_comments_comment_no.nextval, #{prodNo} ,#{reply} , SYSDATE)
+	 </insert>
+	
+	<select id="getCommentList" parameterType="int" resultMap="commentSelectMap">
+		SELECT comment_no, prod_no, reply, input_date 
+		FROM comments 
+		WHERE prod_no = #{value}		
+	 </select>
+</mapper>
